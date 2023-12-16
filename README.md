@@ -1,11 +1,12 @@
 # Cloud
 Cloud
 
-# Estructura DB
+# USUARIOS
 
-create table usuarios(
-    dni varchar(9) PRIMARY KEY , 
-    tel varchar(12) NOT NULL,
-	nombre varchar(100)  NOT NULL,
-    contraseña varchar(15) NOT NULL
-);
+-- ID INT .- ID USUARIO
+-- NOMBRE VARCHAR(100) .- NOMBRE USUARIO
+-- CONTRASEÑA VARCHAR(15) .- CONTRASEÑA USUARIO
+-- TEL VARCHAR(12) .- TELEFONO USUARIO
+-- MAIL VARCHAR(100) .- EMAIL USUARIO
+-- EMAIL_IS_VERIFY  BOOLEAN .- ¿EL CORREO ESTA VERIFICADO? SI O NO
+-- FILES INT .- NUMERO DE FICHEROS
