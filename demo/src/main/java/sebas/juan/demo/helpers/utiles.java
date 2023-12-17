@@ -48,7 +48,6 @@ public class utiles {
                     System.out.println("No se pudo insertar el usuario.");
                 }
             }
-            registerFile(name);
             conn.close();
             System.out.println("Registro insertado");
         } catch (Exception e) {
@@ -58,20 +57,7 @@ public class utiles {
     }
 
 
-    public static void registerFile(String userName) {
-        String url = "fileUser/";
-        File directorio = new File(url + userName);
-        System.out.println(directorio.getPath());
 
-        
-        if (!directorio.exists()) {
-            if (directorio.mkdirs()) {
-                System.out.println("Directorio creado");
-            } else {
-                System.out.println("Error al crear directorio");
-            }
-        }
-    }
 
 
 

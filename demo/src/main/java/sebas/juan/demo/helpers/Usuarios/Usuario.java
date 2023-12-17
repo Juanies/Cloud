@@ -1,6 +1,10 @@
 package sebas.juan.demo.helpers.Usuarios;
 
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.*;
+import java.util.*;
+import org.springframework.web.multipart.MultipartFile;
 
 public class Usuario {
 
@@ -28,19 +32,34 @@ public class Usuario {
     // editar contraseña
     // editar telefonmo
 
-    public void uploadFile() {
-        String url = "fileUser/";
-        File directorio = new File(url + name);
-        System.out.println(directorio.getPath());
 
-        
-        if (!directorio.exists()) {
-            if (directorio.mkdirs()) {
-                System.out.println("Directorio creado");
+    public static void uploadFile(MultipartFile file) throws IOException {
+        LocalDateTime locaDate = LocalDateTime.now();
+
+        int[] array = {
+                locaDate.getYear(), locaDate.getDayOfMonth(), locaDate.getMonthValue(),
+                locaDate.getHour(), locaDate.getMinute(), locaDate.getSecond(),
+                locaDate.getNano(),
+        };
+
+        StringBuilder fileName = new StringBuilder();
+
+        for (int value : array) {
+            fileName.append(value).append("-");
+        }
+
+        String uploadDir = "fileUser/" + fileName;
+        File destDir = new File(uploadDir);
+
+        if (!destDir.exists()) {
+            if (destDir.mkdirs()) {
+                System.out.println("Directorio creado: " + destDir.getPath());
             } else {
-                System.out.println("Error al crear directorio");
+                throw new IOException("Error al crear el directorio");
             }
         }
+
+        file.transferTo(new File(destDir, fileName + "_" + file.getOriginalFilename()));
     }
 
     public void delFile() {
