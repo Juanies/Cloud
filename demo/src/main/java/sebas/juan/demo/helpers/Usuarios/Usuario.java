@@ -1,10 +1,15 @@
 package sebas.juan.demo.helpers.Usuarios;
 
+import java.beans.Statement;
 import java.io.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.*;
 import java.util.*;
 import org.springframework.web.multipart.MultipartFile;
+import sebas.juan.demo.helpers.utiles;
+import java.sql.*;
+import java.io.*;
 
 public class Usuario {
 
@@ -15,9 +20,11 @@ public class Usuario {
     private String mail;
     private boolean email_is_verify;
     private int files;
+    
 
-    public Usuario(String name, String password, String tel, String mail, boolean email_is_verify,
-            int files) {
+    public Usuario(int id, String name, String password, String tel, String mail,
+            boolean email_is_verify, int files) {
+        this.id = id;
         this.name = name;
         this.password = password;
         this.tel = tel;
@@ -26,41 +33,72 @@ public class Usuario {
         this.files = files;
     }
 
+
+
     // Subir fichero
+    // Iniciar sesion
+    // Cerrar sesion
     // Borrar fichero
     // Editar email
     // editar contraseña
     // editar telefonmo
 
 
-    public static void uploadFile(MultipartFile file) throws IOException {
-        LocalDateTime locaDate = LocalDateTime.now();
+    public void uploadFile(String originalFileName) {
+        LocalDateTime localDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmssSSS");
+        String newFileName = localDateTime.format(formatter);
 
-        int[] array = {
-                locaDate.getYear(), locaDate.getDayOfMonth(), locaDate.getMonthValue(),
-                locaDate.getHour(), locaDate.getMinute(), locaDate.getSecond(),
-                locaDate.getNano(),
-        };
+        System.out.println("Original file name: " + originalFileName);
 
-        StringBuilder fileName = new StringBuilder();
+        File oldFile = new File("F:/cloud/Cloud/SubidaFichero/" + originalFileName);
+        File newFile = new File("F:/cloud/Cloud/usersFiles/" + newFileName);
 
-        for (int value : array) {
-            fileName.append(value).append("-");
-        }
+        System.out.println("Relative path of original file: " + oldFile.getPath());
 
-        String uploadDir = "fileUser/" + fileName;
-        File destDir = new File(uploadDir);
+        try {
+            if (oldFile.exists()) {
+                if (oldFile.renameTo(newFile)) {
+                    System.out.println("File has been renamed successfully.");
+                    try {
+                        Connection conn = utiles.connectDB();
 
-        if (!destDir.exists()) {
-            if (destDir.mkdirs()) {
-                System.out.println("Directorio creado: " + destDir.getPath());
+                        String sql =
+                                "INSERT INTO user_file () VALUES (?, ?, ?)";
+
+                        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+
+                            preparedStatement.setInt(1, getId());
+                            preparedStatement.setString(2, originalFileName);
+                            preparedStatement.setString(3, newFileName);
+
+                            int filasAfectadas = preparedStatement.executeUpdate();
+
+                            if (filasAfectadas > 0) {
+                                files++;
+                                System.out.println("Fichero reflejado en la base de datos correctamente");
+                            } else {
+                                System.out.println("No se puedo reflejar el fichero en la base de datos correctamente.");
+                            }
+                        }
+                    } catch (SQLDataException e) {
+                        e.printStackTrace();
+                    }
+
+                } else {
+                    System.out.println("Error: Could not rename the file.");
+                }
             } else {
-                throw new IOException("Error al crear el directorio");
+                System.out.println("Error: The original file does not exist.");
             }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
 
-        file.transferTo(new File(destDir, fileName + "_" + file.getOriginalFilename()));
+
+
     }
+
 
     public void delFile() {
 
@@ -71,7 +109,7 @@ public class Usuario {
     }
 
     public void editPassword() {
-
+        
     }
 
     public void editTel() {
@@ -83,6 +121,9 @@ public class Usuario {
     }
 
 
+    public int getId() {
+        return id;
+    }
 
     public String getName() {
         return name;
