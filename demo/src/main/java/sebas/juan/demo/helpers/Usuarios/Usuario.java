@@ -7,9 +7,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.*;
 import java.util.*;
 import org.springframework.web.multipart.MultipartFile;
-import sebas.juan.demo.helpers.utiles;
 import java.sql.*;
 import java.io.*;
+import org.springframework.stereotype.Service;
 
 public class Usuario {
 
@@ -42,7 +42,6 @@ public class Usuario {
     // Editar email
     // editar contraseña
     // editar telefonmo
-
 
     public void uploadFile(String originalFileName) {
         LocalDateTime localDateTime = LocalDateTime.now();
