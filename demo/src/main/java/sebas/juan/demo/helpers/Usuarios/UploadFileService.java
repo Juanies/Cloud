@@ -8,13 +8,13 @@ import java.sql.SQLDataException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.sql.*;
+import java.io.*;
 
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UploadFileService {
-
     public void uploadFile(MultipartFile file, int id, String originalFileName) {
         LocalDateTime localDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmssSSS");
@@ -23,11 +23,9 @@ public class UploadFileService {
         System.out.println("Original file name: " + originalFileName);
 
         // Construir el objeto File con la nueva ruta y nombre
-        File newFile = new File("F:/cloud/Cloud/usersFiles/" + newFileName);
+        File newFile = new File("../../../../../../../../../../usersFiles/" + newFileName);
 
         // Guardar el archivo con el nombre original en la carpeta temporal
-
-        // Lógica adicional si es necesario
 
         System.out.println("File has been saved successfully.");
 
@@ -62,10 +60,5 @@ public class UploadFileService {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
-
-        finally {
-            // ... cleanup that will execute whether or not an error occurred ...
-        }
-
     }
 }
