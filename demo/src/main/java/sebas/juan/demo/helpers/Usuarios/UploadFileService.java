@@ -23,12 +23,12 @@ public class UploadFileService {
         System.out.println("Original file name: " + originalFileName);
 
         // Construir el objeto File con la nueva ruta y nombre
-        File newFile = new File("../../../../../../../../../../usersFiles/" + newFileName);
+        File newFile = new File("/cloud/Cloud/usersFiles/" + newFileName);
 
         // Guardar el archivo con el nombre original en la carpeta temporal
 
         System.out.println("File has been saved successfully.");
-
+        System.out.println(file);
         try {
             file.transferTo(newFile.toPath());
 
