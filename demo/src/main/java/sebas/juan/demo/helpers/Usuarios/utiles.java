@@ -2,7 +2,6 @@ package sebas.juan.demo.helpers.Usuarios;
 
 import java.sql.*;
 import java.io.*;
-import sebas.juan.demo.helpers.*;
 
 public class utiles {
 
@@ -28,7 +27,12 @@ public class utiles {
         return conexion;
     }
 
-    public static void insertNewUser(String name, String password, String mail, String phone, boolean isVerify) {
+    public static boolean insertNewUser(String name, String password, String mail, String phone, boolean isVerify) {
+        name = name.trim();
+        password = password.trim();
+        mail = mail.trim();
+        phone = phone.trim();
+
         try {
             // Establecer la conexión con la base de datos
             Connection conn = connectDB();
@@ -43,7 +47,7 @@ public class utiles {
                         int count = resultSet.getInt(1);
                         if (count > 0) {
                             System.out.println("Usuario ya estaba creado");
-                            return; // Salir del método si el usuario ya existe
+                            return false; // Salir del método si el usuario ya existe
                         }
                     }
                 }
@@ -72,12 +76,15 @@ public class utiles {
             conn.close();
             System.out.println("Registro insertado");
 
+            return true;
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (Exception e) {
             System.err.println("Hay un problema!");
             System.err.println(e.getMessage());
         }
+
+        return false;
     }
 
 
