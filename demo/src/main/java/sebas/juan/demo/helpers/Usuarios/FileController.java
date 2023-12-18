@@ -1,6 +1,5 @@
 package sebas.juan.demo.helpers.Usuarios;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +13,6 @@ public class FileController {
 
     private final UploadFileService uploadFileService;
 
-    @Autowired
     public FileController(UploadFileService uploadFileService) {
         this.uploadFileService = uploadFileService;
     }
