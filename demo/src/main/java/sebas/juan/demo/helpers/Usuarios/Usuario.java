@@ -1,9 +1,5 @@
 package sebas.juan.demo.helpers.Usuarios;
 
-import java.io.*;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.sql.*;
 
 public class Usuario {
 
@@ -37,77 +33,77 @@ public class Usuario {
     // editar contraseña
     // editar telefonmo
 
-    public void uploadFile(String originalFileName) {
-        LocalDateTime localDateTime = LocalDateTime.now();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmssSSS");
-        String newFileName = localDateTime.format(formatter);
+    // //puedo borrar esto?
+    // public void uploadFile(String originalFileName) {
+    //     LocalDateTime localDateTime = LocalDateTime.now();
+    //     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmssSSS");
+    //     String newFileName = localDateTime.format(formatter);
 
-        System.out.println("Original file name: " + originalFileName);
+    //     System.out.println("Original file name: " + originalFileName);
 
-        File oldFile = new File("F:/cloud/Cloud/SubidaFichero/" + originalFileName);
-        File newFile = new File("F:/cloud/Cloud/usersFiles/" + newFileName);
+    //     File oldFile = new File("F:/cloud/Cloud/SubidaFichero/" + originalFileName);
+    //     File newFile = new File("F:/cloud/Cloud/usersFiles/" + newFileName);
 
-        System.out.println("Relative path of original file: " + oldFile.getPath());
+    //     System.out.println("Relative path of original file: " + oldFile.getPath());
 
-        try {
-            if (oldFile.exists()) {
-                if (oldFile.renameTo(newFile)) {
-                    System.out.println("File has been renamed successfully.");
-                    try {
-                        Connection conn = utiles.connectDB();
+    //     try {
+    //         if (oldFile.exists()) {
+    //             if (oldFile.renameTo(newFile)) {
+    //                 System.out.println("File has been renamed successfully.");
+    //                 try {
+    //                     Connection conn = utiles.connectDB();
 
-                        String sql =
-                                "INSERT INTO user_file () VALUES (?, ?, ?)";
+    //                     String sql = "INSERT INTO user_file () VALUES (?, ?, ?)";
 
-                        try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
+    //                     try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 
-                            preparedStatement.setInt(1, getId());
-                            preparedStatement.setString(2, originalFileName);
-                            preparedStatement.setString(3, newFileName);
+    //                         preparedStatement.setInt(1, getId());
+    //                         preparedStatement.setString(2, originalFileName);
+    //                         preparedStatement.setString(3, newFileName);
 
-                            int filasAfectadas = preparedStatement.executeUpdate();
+    //                         int filasAfectadas = preparedStatement.executeUpdate();
 
-                            if (filasAfectadas > 0) {
-                                files++;
-                                System.out.println("Fichero reflejado en la base de datos correctamente");
-                            } else {
-                                System.out.println("No se puedo reflejar el fichero en la base de datos correctamente.");
-                            }
-                        }
-                    } catch (SQLDataException e) {
-                        e.printStackTrace();
-                    }
+    //                         if (filasAfectadas > 0) {
+    //                             files++;
+    //                             System.out.println("Fichero reflejado en la base de datos correctamente");
+    //                         } else {
+    //                             System.out.println("No se puedo reflejar el fichero en la base de datos correctamente.");
+    //                         }
+    //                     }
+    //                 } catch (SQLDataException e) {
+    //                     e.printStackTrace();
+    //                 }
 
-                } else {
-                    System.out.println("Error: Could not rename the file.");
-                }
-            } else {
-                System.out.println("Error: The original file does not exist.");
-            }
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-
-
-
-    }
+    //             } else {
+    //                 System.out.println("Error: Could not rename the file.");
+    //             }
+    //         } else {
+    //             System.out.println("Error: The original file does not exist.");
+    //         }
+    //     } catch (Exception e) {
+    //         System.out.println("Error: " + e.getMessage());
+    //     }
 
 
-    public void delFile() {
 
-    }
+    // }
 
-    public void editMial() {
 
-    }
+    // public void delFile() {
 
-    public void editPassword() {
+    // }
+
+    // public void editMial() {
+
+    // }
+
+    // public void editPassword() {
         
-    }
+    // }
 
-    public void editTel() {
+    // public void editTel() {
 
-    }
+    // }
 
     public void register() {
 

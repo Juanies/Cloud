@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequestMapping("/api/files")
 public class FileController {
-
     private final UploadFileService uploadFileService;
 
     public FileController(UploadFileService uploadFileService) {

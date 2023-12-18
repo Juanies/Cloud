@@ -11,9 +11,6 @@ Cloud
 - EMAIL_IS_VERIFY  BOOLEAN .- ¿EL CORREO ESTA VERIFICADO? SI O NO
 - FILES INT .- NUMERO DE FICHEROS
 
-// Subir fichero
-// Borrar fichero
-// Editar email
-// editar contraseña
-// editar telefonmo
+### DEPENDENCIAS 
 
+npm install resend --> Para el mail
