@@ -27,6 +27,10 @@ public class CloudApplication {
   public static void main(String[] args) {
 		SpringApplication.run(CloudApplication.class, args);
     utiles.connectDB();
+<<<<<<< HEAD
+=======
+    utiles.insertNewUser("Paco", "123", "correo@gmail.com", "621393279", false);
+>>>>>>> 70763fa029775c5aba5a9dfee6fa35dc9cd4672f
 
     // utiles.insertNewUser("manolo", null, null, null, false);
       
