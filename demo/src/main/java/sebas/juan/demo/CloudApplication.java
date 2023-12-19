@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
-import sebas.juan.demo.helpers.Email.VerifyEmail;
+import sebas.juan.demo.helpers.Email.SendEmail;
 import sebas.juan.demo.helpers.Requests.RequestUser;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,7 +28,7 @@ public class CloudApplication {
 		SpringApplication.run(CloudApplication.class, args);
     utiles.connectDB();
 
-    VerifyEmail.generateToken();
+    SendEmail.generateToken(7, "juanromeroviudez@gmail.com");
     // utiles.insertNewUser("manolo", null, null, null, false);
       
     // Usuario usuario1 = new Usuario(7, null, null, null, null, false, 0) ;

@@ -2,14 +2,9 @@
 package sebas.juan.demo.helpers.Usuarios;
 
 import java.io.File;
-
-import java.sql.PreparedStatement;
-import java.sql.SQLDataException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.sql.*;
-import java.io.*;
-
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -19,11 +14,11 @@ public class UploadFileService {
         LocalDateTime localDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmssSSS");
         String newFileName = localDateTime.format(formatter);
-
         System.out.println("Original file name: " + originalFileName);
 
-        // Construir el objeto File con la nueva ruta y nombre
-        File newFile = new File("/cloud/Cloud/usersFiles/" + newFileName);
+        File newFile = new File("/Users/Juan/Desktop/CLOUD/Cloud/usersFiles/" + newFileName);
+
+
 
         // Guardar el archivo con el nombre original en la carpeta temporal
 
@@ -35,7 +30,7 @@ public class UploadFileService {
             System.out.println("File has been renamed successfully.");
             Connection conn = utiles.connectDB();
 
-            String sql = "INSERT INTO user_file () VALUES (?, ?, ?)";
+            String sql = "INSERT INTO user_file (id, filename, original_filename) VALUES (?, ?, ?)";
 
             try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 
@@ -53,6 +48,8 @@ public class UploadFileService {
                 }
 
             } catch (SQLDataException e) {
+                System.out.println(
+                        "No se puedo reflejar el fichero en la base de datos correctamente.");
                 e.printStackTrace();
             }
 

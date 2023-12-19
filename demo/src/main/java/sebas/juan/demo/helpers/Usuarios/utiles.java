@@ -42,7 +42,7 @@ public class utiles {
             // Establecer la conexión con la base de datos
             Connection conn = connectDB();
 
-            // Verificar si el usuario ya existe
+            // Verificar si el nombre del  usuario ya existe
             String checkUserQuery = "SELECT COUNT(*) FROM usuarios WHERE nombre = ?";
             try (PreparedStatement checkUserStatement = conn.prepareStatement(checkUserQuery)) {
                 checkUserStatement.setString(1, name);
@@ -53,7 +53,7 @@ public class utiles {
                     }
                 }
             }
-
+            // Verificar si el correo del  usuario ya existe
             String checkMailQuery = "SELECT COUNT(*) FROM usuarios WHERE mail = ?";
 
             try (PreparedStatement checkUserStatement = conn.prepareStatement(checkMailQuery)) {

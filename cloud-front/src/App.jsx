@@ -1,8 +1,11 @@
 import { useState } from 'react'
 
 import './App.css'
-
 import axios from 'axios';
+
+
+
+
 
 function App() {
   const [file, setFile] = useState(null);
@@ -42,15 +45,17 @@ function App() {
 
   return (
     <div>
-      <h1>Subir Archivo</h1>
-      <input type="file" onChange={handleFileChange} />
-      <br />
-      <input type="text" placeholder="ID" value={id} onChange={handleIdChange} />
-      <br />
-      {/* Muestra el nombre original del archivo */}
-      <input type="text" placeholder="Nombre Original del Archivo" value={originalFileName} readOnly />
-      <br />
-      <button onClick={handleUpload}>Subir Archivo</button>
+      <div>
+        <h1>Subir Archivo</h1>
+        <input type="file" onChange={handleFileChange} />
+        <br />
+        <input type="text" placeholder="ID" value={id} onChange={handleIdChange} />
+        <br />
+        {/* Muestra el nombre original del archivo */}
+        <input type="text" placeholder="Nombre Original del Archivo" value={originalFileName} readOnly />
+        <br />
+        <button onClick={handleUpload}>Subir Archivo</button>
+      </div>
     </div>
   );
 }
