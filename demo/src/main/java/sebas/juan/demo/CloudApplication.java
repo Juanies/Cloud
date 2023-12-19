@@ -28,7 +28,7 @@ public class CloudApplication {
 		SpringApplication.run(CloudApplication.class, args);
     utiles.connectDB();
 
-    SendEmail.generateToken(7, "juanromeroviudez@gmail.com");
+    Usuario.login("Sebas", "8888");
     // utiles.insertNewUser("manolo", null, null, null, false);
       
     // Usuario usuario1 = new Usuario(7, null, null, null, null, false, 0) ;

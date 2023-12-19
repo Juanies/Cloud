@@ -30,8 +30,8 @@ public class Usuario {
     }
 
 
-    public boolean login(String usuario, String contraseña) {
-        String sql = "SELECT * FROM usuarios WHERE nombre_usuario = ? AND contrasena = ?";
+    public static boolean login(String usuario, String contraseña) {
+        String sql = "SELECT * FROM usuarios WHERE nombre = ? AND contraseña = ?";
         Connection connection = utiles.connectDB();
         boolean login = false;
         try {
@@ -41,8 +41,11 @@ public class Usuario {
             preparedStatement.setString(2, contraseña);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                System.out.println("Login correcto");
-                login = resultSet.next();
+                if (login = resultSet.next()) {
+                        System.out.println("Acces Confirmed");
+                }else{
+                    System.out.println("Acces Denied ");
+                }
             } catch (SQLException e) {
                 e.printStackTrace();
 
