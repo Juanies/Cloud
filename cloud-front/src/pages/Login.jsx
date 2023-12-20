@@ -4,14 +4,14 @@ import './Login.css';
 import Input from '../components/input';
 import Link from '../components/link';
 import LinkPassword from '../components/LinkPassword';
-
+import Button from '../components/button';
 function Login() {
 
 //    const [content, setContent] = useState("content");
 //    const [count, setCount] = useState(0); 
 
 
-    const [msg, setMsg] = useState("Welcome back222222");
+    const [msg, setMsg] = useState("Welcome back");
 
 
     const welcomeMessages = [
@@ -51,7 +51,6 @@ function Login() {
         let aleatorio = Math.floor(Math.random() * 30);
         let h2 = document.getElementById('msg');
 
-
             if(h2.style.animationName == "closeTyping"){
                 h2.style.animationName = "typing";
                 h2.style.animationDuration = "5s";
@@ -73,9 +72,11 @@ function Login() {
         <div className='container'>
             <h2 id='msg' className='h2' onAnimationEnd={changeMsg}>{msg}</h2>
 
+        
             <form action="" method=''>
                 <Input name='Username' type='text' text='Username'  />
                 <Input name='password' type='password' text='Password'/>
+                <Button type='submit' text='Continue'/>
             </form>
             <footer className='footer'>
                 <ul>
