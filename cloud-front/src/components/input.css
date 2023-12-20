@@ -1,0 +1,49 @@
+.input-container{
+    height: 66.5px;    
+    
+}
+
+input{
+    min-height: 66.5px;
+    font-size: 1em;
+    border-radius: .5em;
+    color: var(--text-color);
+    width: 302px;
+    border: 1px solid var(--secondary-color);
+    overflow: visible;
+    background-color: transparent;
+    box-shadow: 0 0 4px var(--secondary-color);
+    padding: 0;
+    margin: 0;
+}
+
+
+.input-container{
+    position: relative;
+    
+}
+
+label{
+    position: absolute;
+    left: 2em;
+    top: 50%;
+    color: var(--text-color);
+    background-color: var(--primary-color);
+    transition: transform 150ms ease-out, font-size 150ms ease-out;
+    pointer-events: none;
+}
+
+input:focus{
+    border: 1px solid var(--decoration-color);
+    outline: none;
+}
+
+
+
+.focus{
+    transform: translateY(-2.6em);
+}
+
+input:focus label{
+    background-color: red;
+}
