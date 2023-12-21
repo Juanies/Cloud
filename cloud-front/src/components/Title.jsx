@@ -1,16 +1,10 @@
-import { useState } from 'react'
-import './Login.css';
+import { useState } from 'react';
+import './Title'
+import PropTypes from 'prop-types';
 
-import Input from '../components/Input';
-import Link from '../components/Link';
-import LinkPassword from '../components/LinkPassword';
-import Button from '../components/Button';
-import Title from '../components/Title';
-
-function Login() {
-//    const [content, setContent] = useState("content");
-//    const [count, setCount] = useState(0); 
-    const [msg, setMsg] = useState("Welcome back");
+const Title = (props) => {
+    
+    const [msg, setMsg] = useState(props.text);
 
 
     const welcomeMessages = [
@@ -46,6 +40,7 @@ function Login() {
         "Enter Your Cloud Oasis with a Friendly Hello",
     ];
 
+
     const changeMsg = () => {
         let aleatorio = Math.floor(Math.random() * 30);
         let h2 = document.getElementById('msg');
@@ -55,40 +50,23 @@ function Login() {
                 h2.style.animationDuration = "5s";
 
             }else{
-                h2.style.animationName = "closeTyping";
+                h2.style.animationName = "closeTyping"; 
 
                 h2.style.animationDuration = "5s";
                 h2.onanimationend = ( )=> {
                     setMsg(welcomeMessages[aleatorio]);
                 }
 
-            }
-
-
-        
+            }  
     };
-    return (
-        <div className='container'>
-            <Title text='Welcome Back'/>
-            <form action="" method=''>
-                <Input name='Username' type='text' text='Username'  />
-                <Input name='password' type='password' text='Password'/>
-                <Button type='submit' text='Continue'/>
-            </form>
-            <footer className='footer'>
-                <ul>
-                    <li className='border'>
-                    <Link link='#' title='Terms of use' msg='Terms of use' />
 
-                    </li>
-                    |
-                    <li>
-                        <Link link='#' title='Terms of use' msg='Privacy Policy' />
-                    </li>
-                </ul>
-            </footer>
-        </div>
-    );
+    return(
+        <h2 id='msg' className='h2' onAnimationEnd={changeMsg}>{msg}</h2>
+    )
 }
 
-export default Login
+Title.propTypes = {
+    text: PropTypes.string.isRequired, 
+};
+
+export default Title

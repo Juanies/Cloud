@@ -16,6 +16,13 @@ public class RequestUser {
     this.username = username;
   }
 
+  public RequestUser(String username, String password, String email, String phone) {
+    this.username = username;
+    this.password = password;
+    this.email = email;
+    this.phone = phone;
+  }
+
   public String getPassword() {
     return password;
   }

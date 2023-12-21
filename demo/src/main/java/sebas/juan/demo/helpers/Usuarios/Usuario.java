@@ -1,10 +1,5 @@
 package sebas.juan.demo.helpers.Usuarios;
 
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLDataException;
-import java.sql.SQLException;
 import java.sql.*;
 
 public class Usuario {
@@ -18,17 +13,38 @@ public class Usuario {
     private int files;
 
 
-    public Usuario(int id, String name, String password, String tel, String mail,
-            boolean email_is_verify, int files) {
-        this.id = id;
+    public Usuario(String name, String password, String tel, String mail) {
         this.name = name;
         this.password = password;
         this.tel = tel;
         this.mail = mail;
-        this.email_is_verify = email_is_verify;
-        this.files = files;
     }
+    
+    public static void changeNameFile(String randomName, String newName, int id) {
+        // Busco el nombre del fichero 
+        String sqlRename = "UPDATE user_file SET filename = ? WHERE filename = ? AND id = ?";
 
+        Connection connection = utiles.connectDB();
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(sqlRename);
+            preparedStatement.setString(1, newName);
+            preparedStatement.setString(2, randomName);
+            preparedStatement.setInt(3, id);
+
+            int rowsAffected = preparedStatement.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("Se actualizó el filename exitosamente en el mismo registro.");
+            } else {
+                System.out.println("No se encontró ninguna fila para actualizar con el original_filename proporcionado.");
+            }
+            connection.close();
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+
+    }
 
     public static boolean login(String usuario, String contraseña) {
         String sql = "SELECT * FROM usuarios WHERE nombre = ? AND contraseña = ?";

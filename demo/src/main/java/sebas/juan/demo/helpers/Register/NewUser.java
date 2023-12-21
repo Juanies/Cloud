@@ -1,38 +1,15 @@
-package sebas.juan.demo.helpers.Usuarios;
-
+package sebas.juan.demo.helpers.Register;
 import java.sql.*;
 
 import java.io.*;
+import org.springframework.stereotype.Service;
+import sebas.juan.demo.helpers.Usuarios.utiles;
 
-public class utiles {
-
-    public static Connection connectDB() {
-        Connection conexion = null;
-
-        try {
-            Class.forName("com.mysql.cj.jdbc.Driver");
-
-            String url =
-                    "jdbc:mysql://butxakeeezwxbk4bnx3q-mysql.services.clever-cloud.com:3306/butxakeeezwxbk4bnx3q";
-            String user = "ubje4pfqqyibmggx";
-            String password = "vuaUepVHp7lFF6ChO01e";
-
-            conexion = DriverManager.getConnection(url, user, password);
-
-            System.out.println("Conexión exitosa");
-        } catch (Exception e) {
-            System.out.println("Problema con la conexion a la base de datos");
-            e.printStackTrace();
-        }
-
-        return conexion;
-    }
-
-    
-
-    
-    public static boolean insertNewUser(String name, String password, String mail, String phone) {
-        name = name.trim();
+@Service
+public class NewUser {
+        public static boolean insertNewUser(String name, String password, String mail, String phone) {
+            System.out.println("New user Activated");
+            name = name.trim();
         password = password.trim();
         mail = mail.trim();
         phone = phone.trim();
@@ -40,7 +17,7 @@ public class utiles {
         int countMail = 0;
         try {
             // Establecer la conexión con la base de datos
-            Connection conn = connectDB();
+            Connection conn = utiles.connectDB();
 
             // Verificar si el nombre del  usuario ya existe
             String checkUserQuery = "SELECT COUNT(*) FROM usuarios WHERE nombre = ?";
@@ -109,5 +86,3 @@ public class utiles {
 
     }
 }
-
-

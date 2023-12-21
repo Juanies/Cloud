@@ -1,9 +1,4 @@
-import { useState } from 'react'
-
-
-
-
-
+import { useEffect, useState } from 'react'
 
 function FileUpload() {
     const [file, setFile] = useState(null);
@@ -31,7 +26,7 @@ function FileUpload() {
         formData.append('id', id);
         formData.append('originalFileName', originalFileName);
 
-        fetch.post('http://localhost:8080/api/files/upload', formData)
+        useEffect.PUT('http://localhost:8080/api/files/upload', formData)
         .then(response => {
             console.log('Response:', response.data);
             // Puedes realizar acciones adicionales después de la carga del archivo
