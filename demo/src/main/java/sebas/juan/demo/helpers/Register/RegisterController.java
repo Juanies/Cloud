@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import sebas.juan.demo.helpers.Requests.RequestUser;
+import sebas.juan.demo.helpers.Usuarios.UploadFileService;
 import sebas.juan.demo.helpers.Usuarios.utiles;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,9 +22,10 @@ import org.springframework.web.bind.annotation.*;
 public class RegisterController {
 
     @PostMapping("/register")
-    public ResponseEntity<String> handleFileUpload(@RequestBody RequestUser user) {
-      //  RequestUser user = new RequestUser(username, password, mail, phone );
+    public ResponseEntity<String> handleFileUpload(@RequestParam("username") String username, @RequestParam("password") String password,@RequestParam("mail") String mail,@RequestParam("phone") String phone) {
+        RequestUser user = new RequestUser(username, password, mail, phone);
         UserService.SignUp(user);
+        NewUser.insertNewUser(username, password, mail, phone);
         return ResponseEntity.ok("Archivo subido y procesado con éxito.");
     }
 
