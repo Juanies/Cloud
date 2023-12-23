@@ -1,14 +1,12 @@
 import { useState } from 'react'
+import Cloud from './pages/Cloud';
 
 
-import Login from './pages/Login';
-import FileUpload from './components/FileUpload';
-import Register from './pages/Register';
 
 function App() {
   return (
     <div>
-      <Register/>
+      <Cloud/>
     </div>
   );
 }

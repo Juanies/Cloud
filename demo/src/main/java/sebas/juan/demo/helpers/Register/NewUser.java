@@ -7,7 +7,6 @@ import java.sql.SQLException;
 import org.springframework.stereotype.Service;
 import sebas.juan.demo.helpers.Usuarios.utiles;
 
-@Service
 public class NewUser {
 
     public static boolean insertNewUser(String name, String password, String mail, String phone) {
@@ -39,7 +38,6 @@ public class NewUser {
             // Insertar nuevo usuario si no existe
             if (countMail == 0 || countName == 0) {
                 insertUser(conn, name, password, mail, phone);
-                conn.close();
                 System.out.println("Registro insertado");
             } else {
                 System.out.println("Error");
@@ -72,7 +70,6 @@ public class NewUser {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        conn.close();
         return count;
     }
 
@@ -93,8 +90,8 @@ public class NewUser {
             } else {
                 System.out.println("No se pudo insertar el usuario.");
             }
-            conn.close();
 
         }
+        conn.close();
     }
 }

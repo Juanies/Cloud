@@ -67,8 +67,6 @@ public class UserService {
             msg.put("msg", "unsuccessful");
             return new ResponseEntity<>(msg, HttpStatus.BAD_REQUEST);
         }
-                    NewUser.insertNewUser(username, password, email, phone);
-
 
         return new ResponseEntity<>(msg, HttpStatus.OK);
     }

@@ -24,8 +24,9 @@ public class RegisterController {
     @PostMapping("/register")
     public ResponseEntity<String> handleFileUpload(@RequestParam("username") String username, @RequestParam("password") String password,@RequestParam("mail") String mail,@RequestParam("phone") String phone) {
         RequestUser user = new RequestUser(username, password, mail, phone);
-        UserService.SignUp(user);
+        //              Habria que ejecutar el InsertNewUser en el SignUp pero no vq
         NewUser.insertNewUser(username, password, mail, phone);
+
         return ResponseEntity.ok("Archivo subido y procesado con éxito.");
     }
 
