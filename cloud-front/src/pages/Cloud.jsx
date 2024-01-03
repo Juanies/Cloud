@@ -3,13 +3,40 @@ import './Cloud.css';
 import image from './../assets/Logo.png';
 import user from '../assets/user.jpeg';
 import Favorite from '../assets/star-regular.svg';
+import FavoriteOn from '../assets/star-solid.svg';
 
+import '../components/File.css';
+import  './../components/Input.css';
 
 function Cloud() {
   const asideRef = useRef(null);
   const asidebarRef = useRef(null);
   const [isDragging, setIsDragging] = useState(false);
   const [initialCursorX, setInitialCursorX] = useState(0);
+
+  const loadFiles = async () => {
+    try {
+      const response = await fetch('http://localhost:8080/api/files/getfiles', {
+        method: 'GET',
+        credentials: 'include',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      });
+  
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+  
+      // Continue processing the response here...
+  
+    } catch (error) {
+      console.error('Error:', error.message);
+    }
+  };
+
+
+
 
   const handleMouseDown = (e) => {
     if (e.target === asidebarRef.current) {
@@ -18,8 +45,7 @@ function Cloud() {
     }
   };
 
-
-
+  
 
   const handleMouseUp = () => {
     setIsDragging(false);
@@ -28,14 +54,11 @@ function Cloud() {
   const handleMouseMove = (e) => {
     if (isDragging) {
       const { clientX } = e;
-
       const movementX = clientX - initialCursorX;
-
-        setAsideWidth(asideWidth + movementX);
-        setInitialCursorX(clientX); 
+      setAsideWidth(asideWidth + movementX);
+      setInitialCursorX(clientX);
     }
   };
-
     const [dropdown1, setDropdown1] = useState(true);
     const [dropdown2, setDropdown2] = useState(true);
 
@@ -46,9 +69,101 @@ function Cloud() {
           setDropdown2((prevDropdown) => !prevDropdown);
       }
     }
+
+
+
+
     const [filesData, setFilesData] = useState([
       { id: 1, urlimg: 'image1.jpg', urlimg2: 'image1.jpg', namefile: 'file1.txt', datefile: '11/11/2005' },
-      { id: 2, urlimg: 'image2.jpg', urlimg2: 'image1.jpg', namefile: 'file2.txt', datefile: '11/11/2005' },
+      { id: 2, urlimg: 'image2.jpg', urlimg2: 'image1.jpg', namefile: 'file2.txt', datefile: '11/11/2005'   },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 4, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 5, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 6, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 7, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
+      { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
       { id: 3, urlimg: 'image3.jpg', urlimg2: 'image1.jpg', namefile: 'file3.txt', datefile: '11/11/2005' },
       // Add more objects as needed
     ]);
@@ -61,11 +176,13 @@ function Cloud() {
     const handleClick = (clickedId) => {
       const updatedFilesData = [...filesData];
       const clickedFileIndex = updatedFilesData.findIndex((file) => file.id === clickedId);
-      const clickedFile = updatedFilesData.splice(clickedFileIndex, 1)[0];
-      updatedFilesData.unshift(clickedFile);
-      setFilesData(updatedFilesData);
-      isFavorite.push(clickedFile);
-      console.log('Updated Order:', isFavorite.map((file) => file.namefile));
+      const clickedFile = updatedFilesData[clickedFileIndex];
+  
+      if (isFavorite.some((file) => file.id === clickedId)) {
+        removeFavorite(clickedId);
+      } else {
+        setFavorite([...isFavorite, clickedFile]);
+      }
     };
 
     const removeFavorite = (clickedId) => {
@@ -78,17 +195,19 @@ function Cloud() {
       });
     };
 
-  const [asideWidth, setAsideWidth] = useState(300); // Ancho inicial del aside
+
+
+  const [asideWidth, setAsideWidth] = useState(300); 
 
   return (
-    <div className='cloud-container'>
+    <div  className='cloud-container'>
       <header className='cloud-header'>
         <ul className='cloud-ul'>
           <li className='cloud-li container-img'>
-            <img src={image} alt="image1" />
+            <img onLoad={loadFiles} src={image} alt="image1" />
           </li>
           <li className='cloud-li'>
-            <input type="text" placeholder='search' />
+            <input className='search' type="text" placeholder='search' />
           </li>
           <li className='cloud-li container-img'>
             <img src={user} className='image2' alt="image2" />
@@ -111,11 +230,11 @@ function Cloud() {
                 <img src={file.urlimg} alt="" />
                 <p className='namefile'> {file.namefile} </p>
                 <p className='datefile'>{file.datefile}</p>
-                <img onClick={() => handleClick(file.id)} className='star' src={Favorite} alt="" />
+                <img src={isFavorite.some((f) => f.id === file.id) ? FavoriteOn : Favorite}onClick={() => handleClick(file.id)} className='star'  alt="" />
               </div>
           ))}
           </aside>
-          <section>
+          <section className='main'>
             <div className='section-special'>
                 <h3 onClick={() => desplegable('contenido1')}>Favoritos</h3>
                 <div id='contenido1' className={`dropdown ${dropdown1 ? '' : 'dropdown-hidden'}`}>
@@ -124,7 +243,7 @@ function Cloud() {
                 <img src={file.urlimg} alt="" />
                 <p className='namefile'> {file.namefile} </p>
                 <p className='datefile'>{file.datefile}</p>
-                <img onClick={() => removeFavorite(file.id)} className='star' src={Favorite} alt="" />
+                <img onClick={() => removeFavorite(file.id)} className='star' src={isFavorite.some((f) => f.id === file.id) ? FavoriteOn : Favorite} alt="" />
               </div>
             ))}
                 </div>
@@ -137,7 +256,7 @@ function Cloud() {
               <img src={file.urlimg} alt="" />
               <p className='namefile'> {file.namefile} </p>
               <p className='datefile'>{file.datefile}</p>
-              <img src={Favorite} onClick={() => handleClick(file.id)} className='star'  alt="" />
+              <img src={isFavorite.some((f) => f.id === file.id) ? FavoriteOn : Favorite}onClick={() => handleClick(file.id)} className='star'  alt="" />
             </div>
           ))}
                 </div>

@@ -6,8 +6,6 @@ public class RequestUser {
   private String email;
   private String phone;
 
-  // getters y setters para username y password
-
   public String getUsername() {
     return username;
   }

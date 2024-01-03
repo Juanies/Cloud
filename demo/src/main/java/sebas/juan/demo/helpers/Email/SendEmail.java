@@ -3,7 +3,6 @@ package sebas.juan.demo.helpers.Email;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import com.resend.*;
-import com.resend.core.exception.ResendException;
 import com.resend.services.emails.model.SendEmailRequest;
 import com.resend.services.emails.model.SendEmailResponse;
 import java.sql.*;
@@ -22,7 +21,7 @@ public class SendEmail {
                 .html("<p>Congrats on sending your <strong>first email</strong>!</p>").build();
 
         try {
-            SendEmailResponse data = resend.emails().send(sendEmailRequest);
+           // SendEmailResponse data = resend.emails().send(sendEmailRequest);
             System.out.println("Correo enviado con exito");
         } catch (Exception e) {
             System.out.println("Error al enviar el correo");

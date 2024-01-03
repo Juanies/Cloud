@@ -2,8 +2,6 @@ package sebas.juan.demo.helpers.Usuarios;
 
 import java.sql.*;
 
-import java.io.*;
-
 public class utiles {
 
     public static Connection connectDB() {
@@ -39,10 +37,8 @@ public class utiles {
         int countName = 0;
         int countMail = 0;
         try {
-            // Establecer la conexión con la base de datos
             Connection conn = connectDB();
 
-            // Verificar si el nombre del  usuario ya existe
             String checkUserQuery = "SELECT COUNT(*) FROM usuarios WHERE nombre = ?";
             try (PreparedStatement checkUserStatement = conn.prepareStatement(checkUserQuery)) {
                 checkUserStatement.setString(1, name);
@@ -53,7 +49,7 @@ public class utiles {
                     }
                 }
             }
-            // Verificar si el correo del  usuario ya existe
+
             String checkMailQuery = "SELECT COUNT(*) FROM usuarios WHERE mail = ?";
 
             try (PreparedStatement checkUserStatement = conn.prepareStatement(checkMailQuery)) {
@@ -90,8 +86,6 @@ public class utiles {
                         System.out.println("No se pudo insertar el usuario.");
                     }
                 }
-
-                // Cerrar la conexión con la base de datos
                 conn.close();
                 System.out.println("Registro insertado");
             } else {

@@ -4,7 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import org.springframework.stereotype.Service;
 import sebas.juan.demo.helpers.Usuarios.utiles;
 
 public class NewUser {
@@ -21,21 +20,15 @@ public class NewUser {
         int countMail = 0;
 
         try {
-            // Conectar a la base de datos
             Connection conn = utiles.connectDB();
 
-            // Verificar si el nombre de usuario ya existe
             countName = checkExistingUser(conn, name, "nombre");
-
-            // Verificar si el correo electrónico ya existe
             countMail = checkExistingUser(conn, mail, "mail");
 
-            // Mostrar mensajes si el usuario o correo ya existen
             if (countMail > 0) System.out.println("User already with this mail");
             if (countName > 0) System.out.println("User already with this Name");
             if (countMail > 0 && countName > 0) System.out.println("User already with this Email and User");
 
-            // Insertar nuevo usuario si no existe
             if (countMail == 0 || countName == 0) {
                 insertUser(conn, name, password, mail, phone);
                 System.out.println("Registro insertado");
