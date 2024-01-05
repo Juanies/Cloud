@@ -2,7 +2,7 @@ import * as ReactDOM from "react-dom/client";
 import Login from './pages/Login';
 import Register from "./pages/Register";
 import Error  from "./pages/Error";
-
+import Cloud from "./pages/Cloud"
 import {
   createBrowserRouter,
   RouterProvider,
@@ -17,6 +17,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/cloud",
+    element: <Cloud />,
   },
   {
     path: "*",

@@ -1,6 +1,7 @@
 package sebas.juan.demo.helpers.Usuarios;
 
 import java.sql.*;
+import com.fasterxml.jackson.databind.ext.SqlBlobSerializer;
 
 public class Usuario {
 
@@ -42,8 +43,31 @@ public class Usuario {
         }catch(SQLException e){
             e.printStackTrace();
         }
+    }
 
 
+    public static String getid(String username){
+        String sql = "SELECT id FROM usuarios WHERE nombre = ?";
+        String id = null;
+        Connection connection = utiles.connectDB();
+
+        try{
+            PreparedStatement preparedStatement = connection.prepareStatement(sql);
+            preparedStatement.setString(0, username);
+            try{
+                ResultSet resultSet = preparedStatement.executeQuery();
+                if (resultSet.next()) {
+                    id = resultSet.getString("id");
+                }
+            }catch(SQLException e){
+                e.printStackTrace();
+            }
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+        return id;
     }
 
     public static boolean login(String usuario, String contraseña) {

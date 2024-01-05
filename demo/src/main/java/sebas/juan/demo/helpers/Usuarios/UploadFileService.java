@@ -18,10 +18,6 @@ public class UploadFileService {
 
         File newFile = new File("/Users/Juan/Desktop/CLOUD/Cloud/usersFiles/" + newFileName);
 
-
-
-        // Guardar el archivo con el nombre original en la carpeta temporal
-
         System.out.println("File has been saved successfully.");
         System.out.println(file);
         try {

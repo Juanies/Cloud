@@ -18,7 +18,6 @@ function Cloud() {
     try {
       const response = await fetch('http://localhost:8080/api/files/getfiles', {
         method: 'GET',
-        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -28,7 +27,6 @@ function Cloud() {
         throw new Error(`HTTP error! Status: ${response.status}`);
       }
   
-      // Continue processing the response here...
   
     } catch (error) {
       console.error('Error:', error.message);
