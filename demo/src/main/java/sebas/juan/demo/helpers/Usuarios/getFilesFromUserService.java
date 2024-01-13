@@ -10,7 +10,7 @@ import java.lang.String;
 public class getFilesFromUserService {
 
     public static ArrayList<HashMap<String, Object>> getFiles(String id) {
-        String sql = "SELECT * FROM user_file WHERE ID=?";
+        String sql = "SELECT id FROM usuarios WHERE nombre_usuario = ? AND id = ?\"";
         Connection conn = utiles.connectDB();
         ArrayList<HashMap<String, Object>> ficheros2 = new ArrayList<>();
 

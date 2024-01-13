@@ -1,38 +1,36 @@
 package sebas.juan.demo.helpers.Usuarios;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.config.annotation.CorsRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
-import sebas.juan.demo.helpers.Token.Token;
-import org.springframework.context.annotation.Configuration;
+import sebas.juan.demo.helpers.Interceptor.Middleware;
+import java.util.ArrayList;
+import java.util.HashMap;
+import sebas.juan.demo.helpers.Usuarios.*;
 
 @RestController
 @RequestMapping("/api/files")
 public class getFilesFromUserController {
 
     @GetMapping("/getfiles")
-    public static ArrayList<HashMap<String, Object>> getFiles(@CookieValue(value = "cookie") String valorCookie) {
+    public ArrayList<HashMap<String, Object>> getFiles(@CookieValue(value = "cookie", required = false) String valorCookie) {
+        // Obtener el nombre de usuario del ThreadLocal
+        String username = Middleware.getUserName();
+
+        // Obtener otros datos necesarios según tus requisitos
         String token = LoginController.obtenerCookie(valorCookie);
-        String username = Token.getName(token);
         String id = Usuario.getid(username);
-        return getFilesFromUserService.getFiles(id);
-    }
 
+        // Obtener archivos utilizando el servicio
+        ArrayList<HashMap<String, Object>> files = getFilesFromUserService.getFiles(id);
 
-    @Configuration
-    public class CorsConfig implements WebMvcConfigurer {
-        @Override
-        public void addCorsMappings(CorsRegistry registry) {
-            registry.addMapping("/api/files/getfiles")
-                    .allowedOrigins("http://localhost:5173") // Agrega la URL de tu frontend
-                    .allowedMethods("GET")
-                    .allowCredentials(true);
-        }
+        // Imprimir el nombre de usuario y la lista de archivos
+        System.out.println("Nombre de usuario: " + username);
+        // Resto del código...
+
+        // Retornar la lista de archivos
+        return files;
     }
 }
