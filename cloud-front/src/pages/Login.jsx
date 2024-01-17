@@ -1,10 +1,7 @@
 import { useState } from 'react'
 import './Login.css';
 
-import Input from '../components/Input';
 import Link from '../components/Link';
-import LinkPassword from '../components/LinkPassword';
-import Button from '../components/Button';
 import Title from '../components/Title';
 
 function Login() {
@@ -21,16 +18,16 @@ function Login() {
         label.classList.add('focus');
 
         if (e.onFocus) {
-            label.style.color = ''; 
+            label.style.color = '';
         }else{
-            label.style.color = 'var(--decoration-color)'; 
+            label.style.color = 'var(--decoration-color)';
         }
     };
 
     const addBlur = e => {
         const inputContainer = e.target.parentElement;
         const label = inputContainer.querySelector('label');
-        label.style.color = 'var(--text-color)'; 
+        label.style.color = 'var(--text-color)';
     }
 
     const showPass = () => {
@@ -45,7 +42,7 @@ function Login() {
         formData.append('password', password);
 
 
-        
+
         try {
             const response = await fetch('http://localhost:8080/api/user/userlogin', {
                 method: 'POST',
@@ -61,14 +58,14 @@ function Login() {
 
             setUsername('');
             setPassword('');
-            
+
             } catch (error) {
                 console.error('Error:', error.message);
             }
 
 
         };
-    
+
 
     return (
         <div className='container'>

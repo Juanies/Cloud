@@ -1,41 +1,40 @@
-import * as ReactDOM from "react-dom/client";
+import React from 'react';
 import Login from './pages/Login';
-import Register from "./pages/Register";
-import Error  from "./pages/Error";
-import Cloud from "./pages/Cloud"
-import {
-  createBrowserRouter,
-  RouterProvider,
-} from "react-router-dom";
-
+import Register from './pages/Register';
+import Error from './pages/Error';
+import Cloud from './pages/Cloud';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import './index.css';
 
 const router = createBrowserRouter([
   {
-    path: "/register",
+    path: '/register',
     element: <Register />,
   },
   {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: "/cloud",
+    path: '/',
     element: <Cloud />,
   },
   {
-    path: "*",
-    element: <Error /> ,
+    path: '/login',
+    element: <Login />,
+  },
+  {
+    path: '/cloud',
+    element: <Cloud />,
+  },
+  {
+    path: '*',
+    element: <Error />,
   }
 ]);
 
 
+const App = () => (
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
+);
 
-function App() {
-  ReactDOM.createRoot(document.getElementById("root")).render(
-    <RouterProvider router={router}>
-      <App />
-    </RouterProvider>
-  );
-}
 
-export default App
+export default App;
