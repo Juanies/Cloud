@@ -29,7 +29,7 @@ import sebas.juan.demo.helpers.Usuarios.*;
 public class getFilesFromUserController {
 
     @Autowired
-    private HttpServletRequest request; // Necesitas inyectar el HttpServletRequest
+    private HttpServletRequest request;
 
     @CrossOrigin(origins = "http://localhost:5173", methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.PUT, RequestMethod.DELETE})
     @GetMapping("/getfiles")
@@ -40,8 +40,6 @@ public class getFilesFromUserController {
         if (username == null) {
             throw new RuntimeException("Nombre de usuario no encontrado");
         }
-
-        // Obtener token y realizar otras operaciones según sea necesario
 
         ArrayList<HashMap<String, Object>> files = getFilesFromUserService.getFiles(username);
         System.out.println("Nombre de usuario: " + username);

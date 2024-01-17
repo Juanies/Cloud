@@ -16,18 +16,6 @@ public class Middleware implements HandlerInterceptor {
         Cookie[] cookies = request.getCookies();
         System.out.println("Cookies: " + Arrays.toString(cookies));
 
-        if (cookies != null) {
-            for (Cookie cookie : cookies) {
-                System.out.println("Cookie: " + cookie.getName() + "=" + cookie.getValue());
-                if ("nombreDeTuCookie".equals(cookie.getName())) {
-                    // Resto del código...
-                }
-            }
-        } else {
-            System.out.println("No se encontraron cookies en la solicitud.");
-        }
-
-        System.out.println(cookies);
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Usuario no autenticado");
         return false;
     }

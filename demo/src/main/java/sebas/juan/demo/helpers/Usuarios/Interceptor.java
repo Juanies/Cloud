@@ -13,7 +13,7 @@ public class Interceptor implements WebMvcConfigurer {
     @Override
     public void addInterceptors(@NonNull InterceptorRegistry registry) {
         registry.addInterceptor(middleware())
-                .addPathPatterns("/api/**"); // Ajusta el patrón según tus necesidades
+                .addPathPatterns("/api/files/getfiles"); // Ajusta el patrón según tus necesidades
     }
 
     @Bean

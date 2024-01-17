@@ -20,9 +20,9 @@ public class Usuario {
         this.tel = tel;
         this.mail = mail;
     }
-    
+
     public static void changeNameFile(String randomName, String newName, int id) {
-        // Busco el nombre del fichero 
+        // Busco el nombre del fichero
         String sqlRename = "UPDATE user_file SET filename = ? WHERE filename = ? AND id = ?";
 
         Connection connection = utiles.connectDB();
@@ -69,11 +69,11 @@ public class Usuario {
 
         return id;
     }
-
     public static boolean login(String usuario, String contraseña) {
         String sql = "SELECT * FROM usuarios WHERE nombre = ? AND contraseña = ?";
         Connection connection = utiles.connectDB();
         boolean login = false;
+
         try {
             PreparedStatement preparedStatement = connection.prepareStatement(sql);
 
@@ -81,19 +81,29 @@ public class Usuario {
             preparedStatement.setString(2, contraseña);
 
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (login = resultSet.next()) {
+                if (resultSet.next()) {
+                    // Comprueba si el nombre de usuario y la contraseña coinciden
+                    if (usuario.equals(resultSet.getString("nombre")) && contraseña.equals(resultSet.getString("contraseña"))) {
+                        login = true;
                         System.out.println("Acces Confirmed");
-                }else{
-                    System.out.println("Acces Denied ");
+                    } else {
+                        login = false;
+                        System.out.println("Acces Denied ");
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (connection != null) {
+                    connection.close();
                 }
             } catch (SQLException e) {
                 e.printStackTrace();
-
             }
-        connection.close();
-        } catch (SQLException e) {
-            e.printStackTrace();
         }
+
         return login;
     }
 
