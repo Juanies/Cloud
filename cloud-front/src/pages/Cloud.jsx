@@ -14,6 +14,7 @@ function Cloud() {
                         // Aquí puedes agregar headers necesarios como las cookies de autenticación
                         'Content-Type': 'application/json',
                     },
+                    credentials: 'include', // Agrega esta línea para incluir las credenciales en la solicitud
                 });
 
                 if (!response.ok) {
