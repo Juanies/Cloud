@@ -23,9 +23,8 @@ public class Token {
 
     private static Key secretKey = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    
-    public static String webToken(String usuario, String password) {
 
+    public static String webToken(String usuario, String password) {
 
         long nowMillis = System.currentTimeMillis();
         Date now = new Date(nowMillis);
@@ -41,7 +40,7 @@ public class Token {
 
     }
     public static boolean validateToken(String jwtToken) {
-        boolean resultado = false; 
+        boolean resultado = false;
 
         try {
             Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(jwtToken);
@@ -59,7 +58,7 @@ public class Token {
     }
 
     public static String getName(String jwtToken) {
-        String resultado = null; 
+        String resultado = null;
 
         try {
             Jws<Claims> claimsJws = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(jwtToken);

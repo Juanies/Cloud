@@ -46,14 +46,14 @@ function Login() {
         try {
             const response = await fetch('http://localhost:8080/api/user/userlogin', {
                 method: 'POST',
-                body: formData,
+                body: formData
             });
 
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
             }
 
-            const data = await response.json();
+            const data = await response.text();
             console.log('Response:', data);
 
             setUsername('');
