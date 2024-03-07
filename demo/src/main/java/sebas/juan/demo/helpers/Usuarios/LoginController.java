@@ -21,12 +21,18 @@ public class LoginController {
     }
 
     public String crearCookie(HttpServletResponse response, String username, String password) {
-        Cookie miCookie = new Cookie("cookie", Token.webToken(username, password));
-        miCookie.setMaxAge(60000*60);
+        String token = Token.webToken(username, password);
+
+        Cookie miCookie = new Cookie("miCookie", token);
+        miCookie.setMaxAge(3600);
+        miCookie.setPath("/");
+
         response.addCookie(miCookie);
         System.out.println("Cookie creada correctamente para el usuario: " + username);
         return "Cookie creada correctamente para el usuario: " + username;
     }
+
+
     @RequestMapping("/obtenerCookie")
     public static String obtenerCookie(@CookieValue(value = "cookie", required = false) String valorCookie) {
         return Token.getName(valorCookie);
