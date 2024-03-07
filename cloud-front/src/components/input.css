@@ -1,0 +1,53 @@
+
+
+.input-container{
+    position: relative;
+}
+
+
+input{
+    height: 3em;
+    width: var(--standar-width);
+    padding: 0em 1em 0 1em;
+    border-radius: .5em;
+    border: 1px solid var(--secondary-color);
+    box-shadow: 0 0 4px var(--secondary-color);
+    outline: none;
+    z-index: 0;
+}
+
+input:focus{
+    border: 1px solid var(--decoration-color);
+}
+
+label{
+    position: absolute;
+    left: 5%;
+    top: 25%;
+    background-color: var(--primary-color);
+    z-index: 1;
+}
+
+
+svg{
+    position: absolute;
+    width: 1.2em;
+    right: 1em;
+    top: 30%;
+    transition: fill .15s ease-in;
+    fill: var(--text-color);
+}
+
+svg:hover{
+    fill: var(--decoration-color);
+}
+
+label{
+    pointer-events: none;
+}
+
+.focus{
+    transform: translateY(-1.46em);
+    transition: transform .25s ease-in;
+}
+
