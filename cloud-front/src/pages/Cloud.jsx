@@ -1,7 +1,33 @@
-import  { useState, useEffect } from 'react';
+import  { useState, useEffect, useCallback } from 'react';
+import {useDropzone} from 'react-dropzone'
 
 function Cloud() {
   const [files, setFiles] = useState([]);
+
+  const onDrop = useCallback((acceptedFiles) => {
+    console.log(acceptedFiles[0]);
+    // Do something with the files
+  }, []);
+
+  const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
+    useDropzone({ onDrop });
+
+    const handleSubmit = async (e) => {
+      e.preventDefault();
+
+      const formData = new FormData();
+      formData.append("file", acceptedFiles[0]);
+
+      const response = await fetch("http://localhost:8080/api/files/upload", {
+        method: "POST",
+        body: formData,
+      });
+      const data = await response.text();
+      console.log(data);
+
+      // Clear the input files state after successful upload
+      setFiles([]);
+    };
 
   useEffect(() => {
     fetch("http://localhost:8080/api/files/getfiles", {
@@ -19,18 +45,44 @@ function Cloud() {
   //#333333
     //#262626
 
-  return (
-    <div className='flex flex-col w-[100dvw]   bg-[#333] justify-center'>
-      <h2 className="text-2xl ">Archivos:</h2>
-      <ul className='flex flex-col'>
-        {files.map((file, index) => (
-          <li key={index} className='flex  bg-[#262626]'>
-            <p> {file.filename}</p>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-}
+    return (
+      <div className='h-[100dvh]'>
+        <form onSubmit={handleSubmit}>
+          <input type="text" />
+
+          <div className='visibility: hidden;
+'
+            {...getRootProps()}
+          >
+            <div className='flex flex-col w-[100dvw]   bg-[#333] justify-center'>
+                <h2 className="text-2xl ">Archivos:</h2>
+                <ul className='flex flex-col'>
+                  {files.map((file, index) => (
+                    <li key={index} className='flex  bg-[#262626]'>
+                      <p> {file.filename}</p>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+          </div>
+
+          {acceptedFiles[0] && (
+            <img src={URL.createObjectURL(acceptedFiles[0])} alt=""
+              style={{
+                width: '300px',
+                height: '300px'
+              }}
+            />
+          )}
+
+          <button>Enviar</button>
+        </form>
+
+
+      </div>
+
+    );
+  }
+
 
 export default Cloud;

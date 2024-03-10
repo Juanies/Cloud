@@ -1,5 +1,6 @@
 package sebas.juan.demo.helpers.Usuarios;
 
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,8 +18,12 @@ public class FileController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file, @RequestParam("id") int id, @RequestParam("originalFileName") String originalFileName) {
-        uploadFileService.uploadFile(file, id, originalFileName);
+    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file,
+            HttpServletRequest request) {
+        String valorCookie = (String) request.getAttribute("miCookieValor");
+
+        uploadFileService.uploadFile(file, valorCookie);
+        System.out.println("awa");
         return ResponseEntity.ok("Archivo subido y procesado con éxito.");
     }
 }

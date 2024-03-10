@@ -10,16 +10,16 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UploadFileService {
-    public void uploadFile(MultipartFile file, int id, String originalFileName) {
+    public void uploadFile(MultipartFile file, String id) {
         LocalDateTime localDateTime = LocalDateTime.now();
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmssSSS");
         String newFileName = localDateTime.format(formatter);
-        System.out.println("Original file name: " + originalFileName);
 
-        File newFile = new File("/Users/Juan/Desktop/CLOUD/Cloud/usersFiles/" + newFileName);
+        File newFile = new File("F:\\Cloud\\usersFiles\\" + newFileName);
 
         System.out.println("File has been saved successfully.");
         System.out.println(file);
+        System.out.println(newFile.getAbsolutePath());
         try {
             file.transferTo(newFile.toPath());
 
@@ -30,8 +30,8 @@ public class UploadFileService {
 
             try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 
-                preparedStatement.setInt(1, id);
-                preparedStatement.setString(2, originalFileName);
+                preparedStatement.setString(1, id);
+                preparedStatement.setString(2, file.getName());
                 preparedStatement.setString(3, newFileName);
 
                 int filasAfectadas = preparedStatement.executeUpdate();
@@ -52,6 +52,7 @@ public class UploadFileService {
 
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
+            System.out.println("uiwu");
         }
     }
 }
