@@ -85,7 +85,7 @@ function Login() {
                     </div>
 
                     <a href="/login">Sign Up</a>
-                    <button type='submit'>Register</button>
+                    <button type='submit'>Login</button>
                 </form>
             <footer className='footer'>
                 <ul>

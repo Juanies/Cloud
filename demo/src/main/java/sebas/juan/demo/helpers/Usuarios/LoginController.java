@@ -35,8 +35,5 @@ public class LoginController {
     }
 
 
-    @RequestMapping("/obtenerCookie")
-    public static String obtenerCookie(@CookieValue(value = "cookie", required = false) String valorCookie) {
-        return Token.getName(valorCookie);
-    }
+
 }

@@ -1,3 +1,25 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  --terciary-color: #213547;
+  --decoration-color: #646cff;
+  --secondary-color: rgba(0, 0, 0, 0.205);
+  --primary-color: #ffffff;
+  --text-color: #7a7a7a;
+  --standar-width: 20em;
+  border: #213547;
+}
+
+body{
+  overflow-x: hidden;
+  font-family: 'Onest Variable';
+
+}
+
 :root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   --terciary-color: #213547;
@@ -36,8 +58,3 @@ h1 {
 h2{
   color: var(--terciary-color);
 }
-
-
-
-
-
