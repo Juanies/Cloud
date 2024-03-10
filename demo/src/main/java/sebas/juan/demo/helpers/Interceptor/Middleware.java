@@ -1,36 +1,30 @@
 package sebas.juan.demo.helpers.Interceptor;
 
-import org.springframework.lang.NonNull;
-import org.springframework.web.servlet.HandlerInterceptor;
-import org.springframework.web.servlet.ModelAndView;
-import java.util.Arrays;
-import javax.servlet.http.Cookie;
+import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import sebas.juan.demo.helpers.Token.Token;
-import sebas.juan.demo.helpers.Usuarios.*;
-import sebas.juan.demo.helpers.Token.*;
-
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
+import sebas.juan.demo.helpers.Token.Token;
 
-public class Middleware implements HandlerInterceptor {
+public class Middleware extends HandlerInterceptorAdapter {
 
     @Override
-    public boolean preHandle(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull Object handler) throws Exception {
-        String rawCookie = request.getHeader("Cookie");
-        System.out.println(rawCookie);
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+        Cookie[] cookies = request.getCookies();
+
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("miCookie")) {
+                    String valorCookie = cookie.getValue();
+                    if (Token.valid(valorCookie)) {
+                        request.setAttribute("miCookieValor", Token.getSubject(valorCookie) );
+                        return true;
+                    }
+                }
+            }
+        }
+
+        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         return false;
     }
-
-
-
-	    @GetMapping("/read-spring-cookie")
-	    public String readCookie(@CookieValue(name = "cookie") String cookieName) {
-	        return String.format("value of the cookie with name user-id is: %s", cookieName);
-	    }
-
 }

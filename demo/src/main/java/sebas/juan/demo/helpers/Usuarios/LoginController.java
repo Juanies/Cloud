@@ -12,6 +12,8 @@ public class LoginController {
     @PostMapping("/userlogin")
     public ResponseEntity<String> userLogin(HttpServletResponse response, @RequestParam("username") String username, @RequestParam("password") String password) {
         boolean resultado = Usuario.login(username, password);
+        System.out.println(username);
+        System.out.println(password);
         if (resultado) {
             crearCookie(response, username, password);
             return ResponseEntity.ok("Conexión exitosa. " + username);
@@ -33,8 +35,5 @@ public class LoginController {
     }
 
 
-    @RequestMapping("/obtenerCookie")
-    public static String obtenerCookie(@CookieValue(value = "cookie", required = false) String valorCookie) {
-        return Token.getName(valorCookie);
-    }
+
 }
