@@ -20,6 +20,7 @@ function Cloud() {
 
       const response = await fetch("http://localhost:8080/api/files/upload", {
         method: "POST",
+        credentials: 'include',
         body: formData,
       });
       const data = await response.text();

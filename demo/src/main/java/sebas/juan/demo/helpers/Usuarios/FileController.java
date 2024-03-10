@@ -18,11 +18,10 @@ public class FileController {
     }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file,
-            HttpServletRequest request) {
+    public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file, HttpServletRequest request) {
         String valorCookie = (String) request.getAttribute("miCookieValor");
 
-        uploadFileService.uploadFile(file, valorCookie);
+        uploadFileService.uploadFile(file, getFilesFromUserService.getId(valorCookie));
         System.out.println("awa");
         return ResponseEntity.ok("Archivo subido y procesado con éxito.");
     }

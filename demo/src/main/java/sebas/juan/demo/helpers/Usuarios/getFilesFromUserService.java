@@ -18,17 +18,17 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 @Service // Anotación indicando que esta clase es un componente de servicio en Spring
 public class getFilesFromUserService {
 
-    public static String getId(String username){
+    public static int getId(String username){
         String sql = "SELECT id FROM usuarios WHERE nombre = ?";
         Connection conn = utiles.connectDB();
-        String res = null;
+        int res = -1;
 
         try(PreparedStatement preparedStatement = conn.prepareStatement(sql)){
             preparedStatement.setString(1, username);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
-                if (resultSet.next()) { // Verificar si hay filas en el resultado
-                    String id = resultSet.getString("id");
-                    res = id;
+                if (resultSet.next()) {
+                    int fileId = resultSet.getInt("id");
+                    res = fileId;
                 } else {
                     System.out.println("No se encontró ningún usuario con el nombre: " + username);
                 }
@@ -49,23 +49,23 @@ public class getFilesFromUserService {
         return res;
     }
 
-    public static ArrayList<HashMap<String, Object>> getFiles(String id) {
+    public static ArrayList<HashMap<String, Object>> getFiles(int id) {
         String sql = "SELECT id, filename, original_filename, extension FROM user_file WHERE id = ?";
         Connection conn = utiles.connectDB();
 
         ArrayList<HashMap<String, Object>> ficheros2 = new ArrayList<>();
 
         try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
-            preparedStatement.setString(1, id);
+            preparedStatement.setInt(1, id);
             try (ResultSet resultSet = preparedStatement.executeQuery()) {
                 while (resultSet.next()) {
-                    String fileId = resultSet.getString("id");
+                    int fileId = resultSet.getInt("id"); // Obtener el ID del archivo de la base de datos
                     String fileName = resultSet.getString("filename");
                     String originalFileName = resultSet.getString("original_filename");
                     String extension = resultSet.getString("extension");
 
                     HashMap<String, Object> ficheroMap = new HashMap<>();
-                    ficheroMap.put("id", fileId);
+                    ficheroMap.put("id", fileId); // Utilizar el ID del archivo recuperado de la base de datos
                     ficheroMap.put("filename", fileName);
                     ficheroMap.put("original_filename", originalFileName);
                     ficheroMap.put("extension", extension);
@@ -76,13 +76,14 @@ public class getFilesFromUserService {
 
         } catch (SQLException e) {
             e.printStackTrace();
-            System.out.println(e);
+            System.out.println(e + " ----------------- ");
         }finally {
             if (conn != null) {
                 try {
                     conn.close();
                 } catch (SQLException e) {
                     e.printStackTrace();
+                    System.out.println("awdwadawdwadwad");
                 }
             }
         }

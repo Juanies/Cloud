@@ -10,8 +10,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 @Service
 public class UploadFileService {
-    public void uploadFile(MultipartFile file, String id) {
+    public void uploadFile(MultipartFile file, int id) {
         LocalDateTime localDateTime = LocalDateTime.now();
+        System.out.println(id + "ada");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyyMMdd-HHmmssSSS");
         String newFileName = localDateTime.format(formatter);
 
@@ -30,7 +31,7 @@ public class UploadFileService {
 
             try (PreparedStatement preparedStatement = conn.prepareStatement(sql)) {
 
-                preparedStatement.setString(1, id);
+                preparedStatement.setInt(1, 14);
                 preparedStatement.setString(2, file.getName());
                 preparedStatement.setString(3, newFileName);
 
