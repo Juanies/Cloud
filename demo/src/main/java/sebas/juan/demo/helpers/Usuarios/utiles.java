@@ -10,9 +10,10 @@ public class utiles {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String url = "j..";
-            String user = "..";
-            String password = "..";
+            String url =
+                    "jdbc:mysql://butxakeeezwxbk4bnx3q-mysql.services.clever-cloud.com:3306/butxakeeezwxbk4bnx3q";
+            String user = "ubje4pfqqyibmggx";
+            String password = "vuaUepVHp7lFF6ChO01e";
 
             conexion = DriverManager.getConnection(url, user, password);
 
