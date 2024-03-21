@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Cookie;
 import sebas.juan.demo.helpers.Token.Token;
+import sebas.juan.demo.helpers.Usuarios.getFilesFromUserService;
 
 public class Middleware extends HandlerInterceptorAdapter {
 
@@ -17,7 +18,7 @@ public class Middleware extends HandlerInterceptorAdapter {
                 if (cookie.getName().equals("miCookie")) {
                     String valorCookie = cookie.getValue();
                     if (Token.valid(valorCookie)) {
-                        request.setAttribute("miCookieValor", Token.getSubject(valorCookie) );
+                        request.setAttribute("miCookieValor", Token.getSubject(valorCookie));
                         return true;
                     }
                 }

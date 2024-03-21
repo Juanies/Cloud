@@ -5,8 +5,7 @@ function Cloud() {
   const [files, setFiles] = useState([]);
 
   const onDrop = useCallback((acceptedFiles) => {
-    console.log(acceptedFiles[0]);
-    // Do something with the files
+    console.log(acceptedFiles);
   }, []);
 
   const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
@@ -16,17 +15,19 @@ function Cloud() {
       e.preventDefault();
 
       const formData = new FormData();
-      formData.append("file", acceptedFiles[0]);
+      acceptedFiles.forEach((file) => {
+        formData.append('files', file, file.name); // Usar 'files' como el nombre de los archivos
+      });
 
       const response = await fetch("http://localhost:8080/api/files/upload", {
         method: "POST",
         credentials: 'include',
         body: formData,
       });
+
       const data = await response.text();
       console.log(data);
 
-      // Clear the input files state after successful upload
       setFiles([]);
     };
 

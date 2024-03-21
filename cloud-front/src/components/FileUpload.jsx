@@ -7,7 +7,6 @@ function FileUpload() {
 
     const handleFileChange = (e) => {
         setFile(e.target.files[0]);
-        // Obtener el nombre del archivo desde el input file
         setOriginalFileName(e.target.files[0].name);
     };
 
@@ -29,7 +28,6 @@ function FileUpload() {
         useEffect.PUT('http://localhost:8080/api/files/upload', formData)
         .then(response => {
             console.log('Response:', response.data);
-            // Puedes realizar acciones adicionales después de la carga del archivo
         })
         .catch(error => {
             console.error('Error uploading file:', error);
