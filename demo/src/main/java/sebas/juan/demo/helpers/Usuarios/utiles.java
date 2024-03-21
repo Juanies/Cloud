@@ -10,10 +10,9 @@ public class utiles {
         try {
             Class.forName("com.mysql.cj.jdbc.Driver");
 
-            String url =
-                    "jdbc:mysql://butxakeeezwxbk4bnx3q-mysql.services.clever-cloud.com:3306/butxakeeezwxbk4bnx3q";
-            String user = "ubje4pfqqyibmggx";
-            String password = "vuaUepVHp7lFF6ChO01e";
+            String url = "j..";
+            String user = "..";
+            String password = "..";
 
             conexion = DriverManager.getConnection(url, user, password);
 
@@ -26,9 +25,9 @@ public class utiles {
         return conexion;
     }
 
-    
 
-    
+
+
     public static boolean insertNewUser(String name, String password, String mail, String phone) {
         name = name.trim();
         password = password.trim();
@@ -103,5 +102,3 @@ public class utiles {
 
     }
 }
-
-
