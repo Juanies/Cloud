@@ -1,90 +1,82 @@
-import  { useState, useEffect, useCallback } from 'react';
-import {useDropzone} from 'react-dropzone'
+import React, { useState, useEffect } from 'react';
+import { useDropzone } from 'react-dropzone';
 
 function Cloud() {
   const [files, setFiles] = useState([]);
+  const [dropEnabled, setDropEnabled] = useState(true);
 
-  const onDrop = useCallback((acceptedFiles) => {
-    console.log(acceptedFiles);
-  }, []);
+  const handleFileUpload = async (files) => {
+    const formData = new FormData();
+    files.forEach((file) => {
+      formData.append('files', file, file.name); // Usar 'files' como el nombre de los archivos
+    });
 
-  const { getRootProps, getInputProps, isDragActive, acceptedFiles } =
-    useDropzone({ onDrop });
-
-    const handleSubmit = async (e) => {
-      e.preventDefault();
-
-      const formData = new FormData();
-      acceptedFiles.forEach((file) => {
-        formData.append('files', file, file.name); // Usar 'files' como el nombre de los archivos
-      });
-
+    try {
       const response = await fetch("http://localhost:8080/api/files/upload", {
         method: "POST",
         credentials: 'include',
         body: formData,
       });
 
-      const data = await response.text();
-      console.log(data);
+      if (response.ok) {
+        fetchFiles();
+      } else {
+        console.error('Error al subir archivos');
+      }
+    } catch (error) {
+      console.error('Error al subir archivos:', error);
+    } finally {
+      setDropEnabled(true);
+    }
+  };
 
-      setFiles([]);
-    };
+  const { getRootProps, getInputProps } = useDropzone({
+    onDrop: (acceptedFiles) => {
+      if (dropEnabled) {
+        handleFileUpload(acceptedFiles);
+      }
+    }
+  });
+
+  const fetchFiles = async () => {
+    try {
+      const response = await fetch("http://localhost:8080/api/files/getfiles", {
+        method: "GET",
+        credentials: 'include'
+      });
+      if (response.ok) {
+        const data = await response.json();
+        setFiles(data);
+      } else {
+        console.error('Error al obtener archivos');
+      }
+    } catch (error) {
+      console.error('Error al obtener archivos:', error);
+    }
+  };
 
   useEffect(() => {
-    fetch("http://localhost:8080/api/files/getfiles", {
-      method: "GET",
-      credentials: 'include'
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setFiles(data);
-      })
-      .catch((error) => console.log(error));
+    fetchFiles();
   }, []);
 
-
-  //#333333
-    //#262626
-
-    return (
-      <div className='h-[100dvh]'>
-        <form onSubmit={handleSubmit}>
-          <input type="text" />
-
-          <div className='visibility: hidden;
-'
-            {...getRootProps()}
-          >
-            <div className='flex flex-col w-[100dvw]   bg-[#333] justify-center'>
-                <h2 className="text-2xl ">Archivos:</h2>
-                <ul className='flex flex-col'>
-                  {files.map((file, index) => (
-                    <li key={index} className='flex  bg-[#262626]'>
-                      <p> {file.filename}</p>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-          </div>
-
-          {acceptedFiles[0] && (
-            <img src={URL.createObjectURL(acceptedFiles[0])} alt=""
-              style={{
-                width: '300px',
-                height: '300px'
-              }}
-            />
-          )}
-
-          <button>Enviar</button>
-        </form>
-
-
+  return (
+    <div className='h-[100dvh] w-[100dvw]'>
+      <div {...getRootProps()} style={{ border: '1px dashed black', padding: '20px', textAlign: 'center' }}>
+        <input {...getInputProps()} />
+        <p>Arrastra y suelta los archivos aquí, o haz clic para seleccionar archivos</p>
       </div>
-
-    );
-  }
-
+      <div className='p-4'>
+        <h2 className="text-2xl">Archivos:</h2>
+        <ul className='flex flex-col overflow-y-scroll h-[83dvh]'>
+          {files.map((file, index) => (
+            <li key={index} className='flex bg-[#262626] p-2 my-2 text-white'>
+              <p>{file.filename}</p>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  );
+}
 
 export default Cloud;
